@@ -13,16 +13,16 @@ jobs:
           keys:
           - jars-{{ checksum "build.gradle" }}
       - run:
-        name: Build project
-        command: ./gradlew build
+          name: Build project
+          command: ./gradlew build
       - save_cache:
           paths:
             - ~/.m2
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run:
-        name: Generate coverage for tests
-        command: ./gradlew jacocoTestReport
+          name: Generate coverage for tests
+          command: ./gradlew jacocoTestReport
       - run: 
-        name: Upload generated coverage
-        command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+          name: Upload generated coverage
+          command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
