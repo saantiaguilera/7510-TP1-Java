@@ -1,1 +1,1 @@
-rootProject.name = 'saantiaguilera'
+include ':app'

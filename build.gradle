@@ -1,46 +1,6 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-
-group = 'ar.uba.fi.tdd'
-version = '0.0.1-SNAPSHOT'
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-}
-
-repositories {
-    jcenter()
-}
-
-dependencies {
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
-
-    testImplementation group: 'junit', name: 'junit', version:'4.12'
-    testImplementation group: 'org.mockito', name: 'mockito-all', version:'1.9.5'
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs = ["src/main"]
-            includes = ["res/**"]
-        }
-    }
-    test {
-        resources {
-            srcDirs = ["src/test"]
-            includes = ["res/**"]
-        }
+allprojects {
+    repositories {
+        jcenter()
     }
 }
 
