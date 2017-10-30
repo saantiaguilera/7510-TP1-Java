@@ -10,7 +10,7 @@ import com.saantiaguilera.model.contracts.Bindable;
 import com.saantiaguilera.model.contracts.Matcher;
 import com.saantiaguilera.model.contracts.Statement;
 
-public final class KnowledgeBase {
+public class KnowledgeBase {
 
 	@SuppressWarnings("unchecked")
     public boolean answer(
@@ -42,7 +42,6 @@ public final class KnowledgeBase {
                     })
                     .anyMatch(type -> type.matches(input));
 		} catch (Exception e) {
-		    e.printStackTrace();
 			return false;
 		}
 	}

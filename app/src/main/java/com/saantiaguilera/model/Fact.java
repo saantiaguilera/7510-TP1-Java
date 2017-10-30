@@ -26,11 +26,12 @@ public class Fact implements Statement<String>, Bindable<String>, Matcher<Statem
             throw new BoundException("Already bound to " + name + ", " + params);
         }
 
+        line = line.replaceAll("\\s", "");
+
         name = line.replaceAll("\\(.+","").trim();
         params = Arrays.asList(line
                 .replaceAll(".*\\(", "")
                 .replaceAll("\\).*", "")
-                .replaceAll("\\s", "")
                 .split(","));
     }
 
@@ -58,7 +59,7 @@ public class Fact implements Statement<String>, Bindable<String>, Matcher<Statem
     public boolean matches(@Nullable Statement<String> statement) {
         return name().contentEquals(statement.name()) &&
                params().parallelStream()
-                   .allMatch(param -> statement.params().contains(param));
+                   .allMatch(param -> statement.params().get(params().indexOf(param)).matches(param));
     }
 
     @Override

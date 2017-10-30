@@ -24,7 +24,7 @@ public class ResourcesUtilTest {
 
     @Test
     public void test_GetResources_GivesResource() throws Exception {
-//        Assert.assertNotNull(ResourcesUtil.getResource("rules.db"));
+        Assert.assertNotNull(ResourcesUtil.getResource("rules.db"));
     }
 
     @Test

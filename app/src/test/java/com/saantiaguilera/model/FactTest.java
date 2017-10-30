@@ -121,7 +121,7 @@ public class FactTest {
         fact1.bind("varon(juan, pepe, c, d, e).");
 
         Fact fact2 = new Fact();
-        fact2.bind("varon      (      juan     , pepe,      c , d  ,e   )    . ");
+        fact2.bind(" v a r o    n      (      j u  an     , pe pe,      c , d  ,e   )    . ");
 
         Assert.assertTrue(fact2.matches(fact1));
     }

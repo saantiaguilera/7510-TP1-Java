@@ -1,11 +1,19 @@
 package com.saantiaguilera.model;
 
+import com.saantiaguilera.ResourcesUtil;
 import com.saantiaguilera.model.contracts.Bindable;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.HashMap;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ResourcesUtil.class})
 public class RuleTest {
 
     @Test
@@ -117,17 +125,40 @@ public class RuleTest {
 
     @Test
     public void test_Matches_ReturnsFalse_IfParamsAreWrong() {
-        // TODO
+        Rule rule = new Rule();
+        rule.bind("hijo(X, Y) :- varon(X), padre(Y, X).");
+
+        Fact fact = new Fact();
+        fact.bind("hijo(pepe, maria).");
+
+        Assert.assertFalse(rule.matches(fact));
     }
 
     @Test
     public void test_Matches_ReturnsTrue_IfItsCorrect() {
-        // TODO
+        Rule rule = new Rule();
+        rule.bind("hijo(X, Y) :- varon(X), padre(Y, X).");
+
+        Fact fact = new Fact();
+        fact.bind("hijo(pepe, juan).");
+
+        Assert.assertFalse(rule.matches(fact));
     }
 
     @Test
-    public void test_Matches_ReturnsFalse_IfAnErrorOccurs() {
-        // TODO
+    public void test_Matches_ReturnsFalse_IfAnErrorOccurs() throws Exception {
+        PowerMockito.mockStatic(ResourcesUtil.class);
+
+        PowerMockito.when(ResourcesUtil.getResource(Mockito.anyString())).thenThrow(NullPointerException.class);
+
+        Rule rule = new Rule();
+        rule.bind("hijo(X, Y) :- varon(X), padre(Y, X).");
+
+        Fact fact = new Fact();
+        fact.bind("hijo(pepe, juan).");
+
+        // Which should be technically true, but there was an error obtaining the db
+        Assert.assertFalse(rule.matches(fact));
     }
 
 }

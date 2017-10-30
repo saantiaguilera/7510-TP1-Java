@@ -31,6 +31,9 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
         if (fact != null || params != null) {
             throw new BoundException("Already bound.");
         }
+
+        line = line.replaceAll("\\s", "");
+
         fact = new MutableFact();
         fact.bind(
             line.replaceAll(":=.*", "")
@@ -38,7 +41,6 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
         );
 
         params = Arrays.asList(line.replaceAll(".*:=", "")
-            .replaceAll("\\s", "")
             .replaceAll("\\),", ");")
             .split(";"))
             .parallelStream()
@@ -107,10 +109,12 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
                 .map(param -> {
                     List<String> realParams =
                             param.params()
-                                .parallelStream()
+                                .stream()
                                 .map(zipmap::get)
                                 .collect(Collectors.toList());
-                    return param.mutate((String[]) realParams.toArray());
+                    String[] arr = new String[realParams.size()];
+
+                    return param.mutate(realParams.toArray(arr));
                 })
                 .collect(Collectors.toList());
 
