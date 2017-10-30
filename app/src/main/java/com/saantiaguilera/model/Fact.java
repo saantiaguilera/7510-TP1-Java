@@ -63,10 +63,6 @@ public class Fact implements Statement<String>, Bindable<String>, Matcher<Statem
 
     @Override
     public boolean equals(Object o) {
-        if(!super.equals(o)) {
-            return false;
-        }
-
         if (!(o instanceof Fact)) {
             return false;
         }

@@ -1,5 +1,6 @@
 package com.saantiaguilera;
 
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +17,13 @@ public final class ResourcesUtil {
     }
 
     @Nonnull
-    public static Path getResource(@Nonnull String path) throws URISyntaxException {
-        return Paths.get(ClassLoader.getSystemClassLoader()
-                .getResource(path).toURI());
+    public static Path getResource(@Nonnull String path) throws URISyntaxException, FileNotFoundException {
+        try {
+            return Paths.get(ClassLoader.getSystemClassLoader()
+                    .getResource(path).toURI());
+        } catch (NullPointerException ex) {
+            throw new FileNotFoundException(path);
+        }
     }
 
 }

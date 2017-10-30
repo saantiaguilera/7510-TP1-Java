@@ -22,12 +22,15 @@ import com.saantiaguilera.model.contracts.Statement;
 public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statement<String>> {
 
     @Nullable
-    private MutableFact fact;
+    protected MutableFact fact;
     @Nullable
-    private List<MutableFact> params;
+    protected List<MutableFact> params;
 
     @Override
     public void bind(@Nonnull String line) throws BoundException {
+        if (fact != null || params != null) {
+            throw new BoundException("Already bound.");
+        }
         fact = new MutableFact();
         fact.bind(
             line.replaceAll(":=.*", "")
@@ -41,7 +44,7 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
             .parallelStream()
             .map(factLine -> {
                 MutableFact fact = new MutableFact();
-                fact.bind(line);
+                fact.bind(factLine);
                 return fact;
             })
             .collect(Collectors.toList());
@@ -72,7 +75,7 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
 
     @Nonnull
     @CheckReturnValue
-    private HashMap<String, String> zipmap(@Nonnull Statement<String> statement) {
+    protected HashMap<String, String> zipmap(@Nonnull Statement<String> statement) {
         Iterator<String> i1 = fact.params().iterator();
         Iterator<String> i2 = statement.params().iterator();
 
@@ -132,24 +135,6 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
         } catch (Exception silent) {
             return false;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Rule rule = (Rule) o;
-
-        if (fact != null ? !fact.equals(rule.fact) : rule.fact != null) return false;
-        return params != null ? params.equals(rule.params) : rule.params == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = fact != null ? fact.hashCode() : 0;
-        result = 31 * result + (params != null ? params.hashCode() : 0);
-        return result;
     }
 
 }
