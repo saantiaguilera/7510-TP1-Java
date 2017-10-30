@@ -71,8 +71,8 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
 
         // Welcome to java generics part 2
         return params.parallelStream()
-                .map(mutableFact -> (Fact) mutableFact)
-                .collect(Collectors.toList());
+            .map(mutableFact -> (Fact) mutableFact)
+            .collect(Collectors.toList());
     }
 
     @Nonnull
@@ -106,17 +106,17 @@ public class Rule implements Statement<Fact>, Bindable<String>, Matcher<Statemen
 
         // Swap the 'mocked' facts of params for real ones with the real names
         List<Fact> realFactParams = params.parallelStream()
-                .map(param -> {
-                    List<String> realParams =
-                            param.params()
-                                .stream()
-                                .map(zipmap::get)
-                                .collect(Collectors.toList());
-                    String[] arr = new String[realParams.size()];
+            .map(param -> {
+                List<String> realParams =
+                    param.params()
+                        .stream()
+                        .map(zipmap::get)
+                        .collect(Collectors.toList());
+                String[] arr = new String[realParams.size()];
 
-                    return param.mutate(realParams.toArray(arr));
-                })
-                .collect(Collectors.toList());
+                return param.mutate(realParams.toArray(arr));
+            })
+            .collect(Collectors.toList());
 
         // Check that our facts exist in the db
         try {

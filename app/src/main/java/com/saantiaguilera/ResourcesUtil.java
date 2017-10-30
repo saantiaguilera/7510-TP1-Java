@@ -20,7 +20,7 @@ public final class ResourcesUtil {
     public static Path getResource(@Nonnull String path) throws URISyntaxException, FileNotFoundException {
         try {
             return Paths.get(ClassLoader.getSystemClassLoader()
-                    .getResource(path).toURI());
+                .getResource(path).toURI());
         } catch (NullPointerException ex) {
             throw new FileNotFoundException(path);
         }

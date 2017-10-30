@@ -18,12 +18,12 @@ public class AppTest {
         field.set(null, base);
 
         String[] queries = new String[] {
-                "varon(juan).",
-                "varon(pepe).",
-                "varon(hector).",
-                "varon(roberto).",
-                "varon(alejandro).",
-                "mujer(maria)."
+            "varon(juan).",
+            "varon(pepe).",
+            "varon(hector).",
+            "varon(roberto).",
+            "varon(alejandro).",
+            "mujer(maria)."
         };
 
         App.main(queries);

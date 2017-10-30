@@ -30,9 +30,9 @@ public class Fact implements Statement<String>, Bindable<String>, Matcher<Statem
 
         name = line.replaceAll("\\(.+","").trim();
         params = Arrays.asList(line
-                .replaceAll(".*\\(", "")
-                .replaceAll("\\).*", "")
-                .split(","));
+            .replaceAll(".*\\(", "")
+            .replaceAll("\\).*", "")
+            .split(","));
     }
 
     @Nonnull
@@ -58,8 +58,8 @@ public class Fact implements Statement<String>, Bindable<String>, Matcher<Statem
     @Override
     public boolean matches(@Nullable Statement<String> statement) {
         return name().contentEquals(statement.name()) &&
-               params().parallelStream()
-                   .allMatch(param -> statement.params().get(params().indexOf(param)).matches(param));
+            params().parallelStream()
+                .allMatch(param -> statement.params().get(params().indexOf(param)).matches(param));
     }
 
     @Override

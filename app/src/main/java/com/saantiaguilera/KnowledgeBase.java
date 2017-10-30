@@ -12,38 +12,38 @@ import com.saantiaguilera.model.contracts.Statement;
 
 public class KnowledgeBase {
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public boolean answer(
-	        @Nonnull String query) {
-		try {
-		    final Fact input = new Fact();
-		    input.bind(query);
+            @Nonnull String query) {
+        try {
+            final Fact input = new Fact();
+            input.bind(query);
 
-			return Files
-                    .lines(ResourcesUtil.getResource("rules.db"))
-                    .parallel()
-                    .map(line -> {
-                        Bindable<String> bindable;
-                        if (line.contains(":-")) {
-                            bindable = new Rule();
-                        } else {
-                            bindable = new Fact();
-                        }
-                        bindable.bind(line);
+            return Files
+                .lines(ResourcesUtil.getResource("rules.db"))
+                .parallel()
+                .map(line -> {
+                    Bindable<String> bindable;
+                    if (line.contains(":-")) {
+                        bindable = new Rule();
+                    } else {
+                        bindable = new Fact();
+                    }
+                    bindable.bind(line);
 
-                        // Welcome to java generics pt1:
-                        // This is because java generics are implemented awfully
-                        // and since it doesnt support <supers> nor multiple inheritances
-                        // generics as paramters in method generics
-                        // we are forced to switch interfaces between methods,
-                        // else the compiler wont be able
-                        // to match classes and will throw IncompatibleTypesExs.
-                        return (Matcher<Statement<?>>) bindable;
-                    })
-                    .anyMatch(type -> type.matches(input));
-		} catch (Exception e) {
-			return false;
-		}
-	}
+                    // Welcome to java generics pt1:
+                    // This is because java generics are implemented awfully
+                    // and since it doesnt support <supers> nor multiple inheritances
+                    // generics as paramters in method generics
+                    // we are forced to switch interfaces between methods,
+                    // else the compiler wont be able
+                    // to match classes and will throw IncompatibleTypesExs.
+                    return (Matcher<Statement<?>>) bindable;
+                })
+                .anyMatch(type -> type.matches(input));
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }
