@@ -15,5 +15,5 @@ hija(X, Y) :- mujer(X), padre(Y, X).
 hermano(nicolas, roberto).
 hermano(roberto, nicolas).
 varon ( nicolas ) .
-tio(X, Y, Z):- varon(X),	hermano(X, Z),padre(Z, Y).
-tia(X, Y, Z):- mujer(X),	hermano(X, Z),padre(Z, Y).
+tio(X, Y, Z):- varon(X), hermano(X, Z),padre(Z, Y).
+tia(X, Y, Z):- mujer(X), hermano(X, Z),padre(Z, Y).

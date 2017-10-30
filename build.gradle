@@ -29,6 +29,21 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-all', version:'1.9.5'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main"]
+            includes = ["res/**"]
+        }
+    }
+    test {
+        resources {
+            srcDirs = ["src/test"]
+            includes = ["res/**"]
+        }
+    }
+}
+
 wrapper {
     version = '4.1'
     distributionType = Wrapper.DistributionType.ALL

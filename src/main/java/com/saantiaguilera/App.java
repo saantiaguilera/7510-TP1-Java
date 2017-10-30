@@ -1,4 +1,4 @@
-package ar.uba.fi.tdd.rulogic;
+package com.saantiaguilera;
 
 public class App {
 
