@@ -30,14 +30,8 @@ public class KnowledgeBase {
                         bindable = new Fact();
                     }
                     bindable.bind(line);
-
-                    // Welcome to java generics pt1:
-                    // This is because java generics are implemented awfully
-                    // and since it doesnt support <supers> nor multiple inheritances
-                    // generics as paramters in method generics
-                    // we are forced to switch interfaces between methods,
-                    // else the compiler wont be able
-                    // to match classes and will throw IncompatibleTypesExs.
+                    
+                    // Greetings to java erasure :)
                     return (Matcher<Statement<?>>) bindable;
                 })
                 .anyMatch(type -> type.matches(input));
